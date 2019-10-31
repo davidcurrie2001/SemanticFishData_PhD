@@ -1,0 +1,32 @@
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix mi:   <http://www.marine.ie/SemanticFishData#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+mi:Species
+	a	owl:Class
+	.
+
+mi:SamplingSummary
+		a	owl:Class;
+		rdfs:comment "A class to summarise sampling activity"
+		.
+		
+mi:isOfSpecies  			a owl:ObjectProperty .
+mi:isOfYear     			a owl:ObjectProperty .
+mi:isOfQuarter  			a owl:ObjectProperty .	
+mi:isOfGear     			a owl:ObjectProperty .	  
+mi:isOfArea     			a owl:ObjectProperty .	
+mi:DemSeaSchemeLengthObs 	a owl:ObjectProperty .
+mi:DemSeaSchemeAgeObs 		a owl:ObjectProperty .
+mi:DemSeaSchemeBioObs 		a owl:ObjectProperty .
+mi:PelSeaSchemeLengthObs 	a owl:ObjectProperty .
+mi:PelSeaSchemeAgeObs 		a owl:ObjectProperty .
+mi:PelSeaSchemeBioObs 		a owl:ObjectProperty .
+mi:PortSchemeLengthObs 		a owl:ObjectProperty .
+mi:PortSchemeAgeObs 		a owl:ObjectProperty .
+mi:PortSchemeBioObs 		a owl:ObjectProperty .
+
+mi:binomialUntyped  		a owl:ObjectProperty .
+	  
