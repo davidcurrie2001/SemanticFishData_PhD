@@ -1,0 +1,159 @@
+@prefix : <http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix obda: <https://w3id.org/obda/vocabulary#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16> .
+
+<http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#hasDivision
+:hasDivision rdf:type owl:ObjectProperty ;
+             owl:inverseOf :isDivisionOf ;
+             rdfs:domain :Sample ;
+             rdfs:range :ICESDivision .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#hasLandingDate
+:hasLandingDate rdf:type owl:ObjectProperty ;
+                owl:inverseOf :isLandingDateOf ;
+                rdfs:domain :Sample ;
+                rdfs:range [ rdf:type owl:Restriction ;
+                             owl:onProperty owl:topDataProperty ;
+                             owl:someValuesFrom xsd:dateTimeStamp
+                           ] .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#hasMeasurement
+:hasMeasurement rdf:type owl:ObjectProperty ;
+                owl:inverseOf :isMeasurementOf ;
+                rdfs:domain :Sample ;
+                rdfs:range [ rdf:type owl:Restriction ;
+                             owl:onProperty owl:topDataProperty ;
+                             owl:someValuesFrom xsd:float
+                           ] .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#hasObservation
+:hasObservation rdf:type owl:ObjectProperty ;
+                owl:inverseOf :isObservationOf ;
+                rdfs:domain :Sample ;
+                rdfs:range :Observation .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#hasQuality
+:hasQuality rdf:type owl:ObjectProperty ;
+            owl:inverseOf :isQualityOf ;
+            rdfs:domain :Sample .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#hasSpecies
+:hasSpecies rdf:type owl:ObjectProperty ;
+            owl:inverseOf :isSpeciesOf ;
+            rdfs:domain :Sample ;
+            rdfs:range :Species .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#hasUnit
+:hasUnit rdf:type owl:ObjectProperty ;
+         owl:inverseOf :isUnitOf ;
+         rdfs:domain :Sample .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#isDivisionOf
+:isDivisionOf rdf:type owl:ObjectProperty ;
+              rdfs:domain :ICESDivision ;
+              rdfs:range :Sample .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#isLandingDateOf
+:isLandingDateOf rdf:type owl:ObjectProperty ;
+                 rdfs:range :Sample .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#isMeasurementOf
+:isMeasurementOf rdf:type owl:ObjectProperty ;
+                 rdfs:range :Sample .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#isObservationOf
+:isObservationOf rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Observation ;
+                 rdfs:range :Sample .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#isQualityOf
+:isQualityOf rdf:type owl:ObjectProperty ;
+             rdfs:range :Sample .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#isSpeciesOf
+:isSpeciesOf rdf:type owl:ObjectProperty ;
+             rdfs:domain :Species ;
+             rdfs:range :Sample .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#isUnitOf
+:isUnitOf rdf:type owl:ObjectProperty ;
+          rdfs:range :Sample .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#ICESDivision
+:ICESDivision rdf:type owl:Class ;
+              rdfs:subClassOf :Sample ;
+              owl:disjointWith :LandingDate ,
+                               :Observation ,
+                               :Species .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#LandingDate
+:LandingDate rdf:type owl:Class ;
+             rdfs:subClassOf :Sample ;
+             owl:disjointWith :Observation ,
+                              :Species .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#Measurement
+:Measurement rdf:type owl:Class ;
+             rdfs:subClassOf :Observation ;
+             owl:disjointWith :Quality ,
+                              :Unit .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#Observation
+:Observation rdf:type owl:Class ;
+             rdfs:subClassOf :Sample ;
+             owl:disjointWith :Species .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#Quality
+:Quality rdf:type owl:Class ;
+         rdfs:subClassOf :Observation ;
+         owl:disjointWith :Unit .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#Sample
+:Sample rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#Species
+:Species rdf:type owl:Class ;
+         rdfs:subClassOf :Sample .
+
+
+###  http://www.semanticweb.org/akennedy/ontologies/2019/9/untitled-ontology-16#Unit
+:Unit rdf:type owl:Class ;
+      rdfs:subClassOf :Observation .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
