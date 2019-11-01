@@ -9,7 +9,6 @@ import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.reasoner.ValidityReport;
 import org.apache.jena.reasoner.ValidityReport.Report;
-import org.apache.jena.tdb.TDBFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -381,37 +380,100 @@ public class SemanticFishData {
     				myInd.addProperty(hasSpecies, mySpec);
     			}
     			
-    			// We'll use the value of length for the hasMeasurement property - just a float
-    			// We'll also add in a Unit - cm for length
+    			// We'll add an Observation of Length value if required
     			String lengthValue = myHT.get("FishLength");
     			if (lengthValue!= null && lengthValue != "") {
     				
-    				myInd.addProperty(hasMeasurement, onto.createTypedLiteral(lengthValue));
-    				
-    				// Unit
-    				String unitName = ak  + "Unit/" + "cm";
-    				Individual myUnit = null;
-    				myUnit = onto.getIndividual(unitName);
-    				if (myUnit == null ) myUnit = onto.createIndividual (unitName, Unit);
-    				// Now add the Unit as a property to the sample
-    				myInd.addProperty(hasUnit, myUnit);
-    				
-    				// Observation
-    				String obsName = ak  + "Observation/" + "LengthMeasurement";
+    				// Create a Length Observation individual
+    				String obsName = ak  + "Observation/" + sampleID + "/L";
     				Individual myObs = null;
     				myObs = onto.getIndividual(obsName);
     				if (myObs == null ) myObs = onto.createIndividual (obsName, Observation);
     				// Now add the Observation as a property to the sample
     				myInd.addProperty(hasObservation, myObs);
     				
+    				// Add the measumrent to the Observation
+    				myObs.addProperty(hasMeasurement, onto.createTypedLiteral(lengthValue));
+    				
+    				// Unit
+    				String unitName = ak  + "Unit/" + "cm";
+    				Individual myUnit = null;
+    				myUnit = onto.getIndividual(unitName);
+    				if (myUnit == null ) myUnit = onto.createIndividual (unitName, Unit);
+    				// Now add the Unit as a property to the Observation
+    				myObs.addProperty(hasUnit, myUnit);
+    				   				
     				// Quality
     				String qualityName = ak  + "Quality/" + "Length";
     				Individual myQual = null;
     				myQual = onto.getIndividual(qualityName);
     				if (myQual == null ) myQual = onto.createIndividual (qualityName, Quality);
-    				// Now add the Quality as a property to the sample
-    				myInd.addProperty(hasQuality, myQual);
+    				// Now add the Quality as a property to the Observation
+    				myObs.addProperty(hasQuality, myQual);	
+    			}
+    			
+    			// We'll add an Observation of Weight value if required
+    			String weightValue = myHT.get("FishWeight");
+    			if (weightValue!= null && weightValue != "") {
     				
+    				// Create a Length Observation individual
+    				String obsName = ak  + "Observation/" + sampleID + "/W";
+    				Individual myObs = null;
+    				myObs = onto.getIndividual(obsName);
+    				if (myObs == null ) myObs = onto.createIndividual (obsName, Observation);
+    				// Now add the Observation as a property to the sample
+    				myInd.addProperty(hasObservation, myObs);
+    				
+    				// Add the measumrent to the Observation
+    				myObs.addProperty(hasMeasurement, onto.createTypedLiteral(weightValue));
+    				
+    				// Unit
+    				String unitName = ak  + "Unit/" + "g";
+    				Individual myUnit = null;
+    				myUnit = onto.getIndividual(unitName);
+    				if (myUnit == null ) myUnit = onto.createIndividual (unitName, Unit);
+    				// Now add the Unit as a property to the Observation
+    				myObs.addProperty(hasUnit, myUnit);
+    				   				
+    				// Quality
+    				String qualityName = ak  + "Quality/" + "Weight";
+    				Individual myQual = null;
+    				myQual = onto.getIndividual(qualityName);
+    				if (myQual == null ) myQual = onto.createIndividual (qualityName, Quality);
+    				// Now add the Quality as a property to the Observation
+    				myObs.addProperty(hasQuality, myQual);	
+    			}
+    			
+    			// We'll add an Observation of Weight value if required
+    			String ageValue = myHT.get("Age");
+    			if (ageValue!= null && ageValue != "") {
+    				
+    				// Create a Length Observation individual
+    				String obsName = ak  + "Observation/" + sampleID + "/A";
+    				Individual myObs = null;
+    				myObs = onto.getIndividual(obsName);
+    				if (myObs == null ) myObs = onto.createIndividual (obsName, Observation);
+    				// Now add the Observation as a property to the sample
+    				myInd.addProperty(hasObservation, myObs);
+    				
+    				// Add the measumrent to the Observation
+    				myObs.addProperty(hasMeasurement, onto.createTypedLiteral(ageValue));
+    				
+    				// Unit
+    				String unitName = ak  + "Unit/" + "years";
+    				Individual myUnit = null;
+    				myUnit = onto.getIndividual(unitName);
+    				if (myUnit == null ) myUnit = onto.createIndividual (unitName, Unit);
+    				// Now add the Unit as a property to the Observation
+    				myObs.addProperty(hasUnit, myUnit);
+    				   				
+    				// Quality
+    				String qualityName = ak  + "Quality/" + "Age";
+    				Individual myQual = null;
+    				myQual = onto.getIndividual(qualityName);
+    				if (myQual == null ) myQual = onto.createIndividual (qualityName, Quality);
+    				// Now add the Quality as a property to the Observation
+    				myObs.addProperty(hasQuality, myQual);	
     			}
     			
     			// Add Sample Date to sample 
