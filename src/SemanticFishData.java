@@ -526,6 +526,9 @@ public class SemanticFishData {
             int columnCount = metadata.getColumnCount();
             //System.out.println(columnCount);
             
+            int numberOfRecordsProcessed = 0;
+            int progressReportStep = 2000;
+            
             while ( rs.next() ) {
             
             	// Use a Hastable to store the row data
@@ -542,6 +545,9 @@ public class SemanticFishData {
                 // Create an  ontology object
                 CreateSampleRecord(myHT);
             	
+                numberOfRecordsProcessed++;
+                if (numberOfRecordsProcessed  % progressReportStep == 0 ) System.out.println("Processed " + numberOfRecordsProcessed + " database records");
+                
                 //String myTest = rs.getString("SummaryID");
                 //System.out.println(myTest);
             }
