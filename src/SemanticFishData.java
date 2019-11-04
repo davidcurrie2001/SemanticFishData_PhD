@@ -113,6 +113,10 @@ public class SemanticFishData {
 			// Change the value of refreshData as required		
 			boolean refreshData = true;
 			
+			// Checking validity can take a lot of memory - probably best to use it on smaller sets of data rather than trying to
+			// run it on larger data sets
+			boolean checkValidity = false;
+			
 			
 			if (refreshData) {			
 				onto = loadDataFromSource();
@@ -122,7 +126,7 @@ public class SemanticFishData {
 			
 			
 			// STEP 2) CHECK IF OUR ONTMODEL DATA IS VALID
-			checkValidity(onto);
+			if (checkValidity) checkValidity(onto);
 			
 
 			
@@ -361,11 +365,8 @@ public class SemanticFishData {
     			if (divisionValue!= null && divisionValue != "") {
     				// See if we need to create an individual for this division - if so, do it
     				String divName = ak  + "ICESDivision/" + divisionValue;
-    				Individual myDiv = null;
-    				myDiv = onto.getIndividual(divName);
-    				if (myDiv == null ) myDiv = onto.createIndividual (divName, ICESDivision);
     				// Now add the division as a property to the sample
-    				myInd.addProperty(hasDivision, myDiv);
+    				myInd.addProperty(hasDivision, onto.createIndividual (divName, ICESDivision));
     			}
     			
     			// Add species to sample - need to add it as an instance of the Species class, not just the aphiaid as text
@@ -373,11 +374,8 @@ public class SemanticFishData {
     			if (speciesValue!= null && speciesValue != "") {
     				// See if we need to create an individual for this species - if so, do it
     				String specName = ak  + "Species/" + speciesValue;
-    				Individual mySpec = null;
-    				mySpec = onto.getIndividual(specName);
-    				if (mySpec == null ) mySpec = onto.createIndividual (specName, species);
     				// Now add the division as a property to the sample
-    				myInd.addProperty(hasSpecies, mySpec);
+    				myInd.addProperty(hasSpecies, onto.createIndividual (specName, species));
     			}
     			
     			// We'll add an Observation of Length value if required
@@ -386,30 +384,23 @@ public class SemanticFishData {
     				
     				// Create a Length Observation individual
     				String obsName = ak  + "Observation/" + sampleID + "/L";
-    				Individual myObs = null;
-    				myObs = onto.getIndividual(obsName);
-    				if (myObs == null ) myObs = onto.createIndividual (obsName, Observation);
-    				// Now add the Observation as a property to the sample
-    				myInd.addProperty(hasObservation, myObs);
+    				Individual myObs = onto.createIndividual (obsName, Observation);
     				
     				// Add the measumrent to the Observation
     				myObs.addProperty(hasMeasurement, onto.createTypedLiteral(lengthValue));
     				
     				// Unit
     				String unitName = ak  + "Unit/" + "cm";
-    				Individual myUnit = null;
-    				myUnit = onto.getIndividual(unitName);
-    				if (myUnit == null ) myUnit = onto.createIndividual (unitName, Unit);
     				// Now add the Unit as a property to the Observation
-    				myObs.addProperty(hasUnit, myUnit);
+    				myObs.addProperty(hasUnit, onto.createIndividual (unitName, Unit));
     				   				
     				// Quality
     				String qualityName = ak  + "Quality/" + "Length";
-    				Individual myQual = null;
-    				myQual = onto.getIndividual(qualityName);
-    				if (myQual == null ) myQual = onto.createIndividual (qualityName, Quality);
     				// Now add the Quality as a property to the Observation
-    				myObs.addProperty(hasQuality, myQual);	
+    				myObs.addProperty(hasQuality, onto.createIndividual (qualityName, Quality));	
+    				
+    				// Now add the Observation as a property to the sample
+    				myInd.addProperty(hasObservation, myObs);
     			}
     			
     			// We'll add an Observation of Weight value if required
@@ -418,30 +409,23 @@ public class SemanticFishData {
     				
     				// Create a Length Observation individual
     				String obsName = ak  + "Observation/" + sampleID + "/W";
-    				Individual myObs = null;
-    				myObs = onto.getIndividual(obsName);
-    				if (myObs == null ) myObs = onto.createIndividual (obsName, Observation);
-    				// Now add the Observation as a property to the sample
-    				myInd.addProperty(hasObservation, myObs);
-    				
+    				Individual myObs = onto.createIndividual (obsName, Observation);
+   				
     				// Add the measumrent to the Observation
     				myObs.addProperty(hasMeasurement, onto.createTypedLiteral(weightValue));
     				
     				// Unit
     				String unitName = ak  + "Unit/" + "g";
-    				Individual myUnit = null;
-    				myUnit = onto.getIndividual(unitName);
-    				if (myUnit == null ) myUnit = onto.createIndividual (unitName, Unit);
     				// Now add the Unit as a property to the Observation
-    				myObs.addProperty(hasUnit, myUnit);
+    				myObs.addProperty(hasUnit, onto.createIndividual (unitName, Unit));
     				   				
     				// Quality
     				String qualityName = ak  + "Quality/" + "Weight";
-    				Individual myQual = null;
-    				myQual = onto.getIndividual(qualityName);
-    				if (myQual == null ) myQual = onto.createIndividual (qualityName, Quality);
     				// Now add the Quality as a property to the Observation
-    				myObs.addProperty(hasQuality, myQual);	
+    				myObs.addProperty(hasQuality, onto.createIndividual (qualityName, Quality));	
+    				
+    				// Now add the Observation as a property to the sample
+    				myInd.addProperty(hasObservation, myObs);
     			}
     			
     			// We'll add an Observation of Weight value if required
@@ -450,30 +434,23 @@ public class SemanticFishData {
     				
     				// Create a Length Observation individual
     				String obsName = ak  + "Observation/" + sampleID + "/A";
-    				Individual myObs = null;
-    				myObs = onto.getIndividual(obsName);
-    				if (myObs == null ) myObs = onto.createIndividual (obsName, Observation);
-    				// Now add the Observation as a property to the sample
-    				myInd.addProperty(hasObservation, myObs);
+    				Individual myObs = onto.createIndividual (obsName, Observation);
     				
     				// Add the measumrent to the Observation
     				myObs.addProperty(hasMeasurement, onto.createTypedLiteral(ageValue));
     				
     				// Unit
     				String unitName = ak  + "Unit/" + "years";
-    				Individual myUnit = null;
-    				myUnit = onto.getIndividual(unitName);
-    				if (myUnit == null ) myUnit = onto.createIndividual (unitName, Unit);
     				// Now add the Unit as a property to the Observation
-    				myObs.addProperty(hasUnit, myUnit);
+    				myObs.addProperty(hasUnit, onto.createIndividual (unitName, Unit));
     				   				
     				// Quality
     				String qualityName = ak  + "Quality/" + "Age";
-    				Individual myQual = null;
-    				myQual = onto.getIndividual(qualityName);
-    				if (myQual == null ) myQual = onto.createIndividual (qualityName, Quality);
     				// Now add the Quality as a property to the Observation
-    				myObs.addProperty(hasQuality, myQual);	
+    				myObs.addProperty(hasQuality, onto.createIndividual (qualityName, Quality));	
+    				
+    				// Now add the Observation as a property to the sample
+    				myInd.addProperty(hasObservation, myObs);
     			}
     			
     			// Add Sample Date to sample 
@@ -559,6 +536,8 @@ public class SemanticFishData {
 	
 	// Check is the data in our OntModel is valid (e.g. property values are in the correct range)
 	private static void checkValidity(OntModel onto) {
+		
+		System.out.println("Starting ontology data validity checks");
 		
 		// Check if our data is valid
 		ValidityReport validity = onto.validate();
